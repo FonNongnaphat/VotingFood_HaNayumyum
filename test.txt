@@ -8,3 +8,4 @@ Number
 8
 9
 10
+Add typing
