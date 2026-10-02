@@ -61,16 +61,15 @@ export default function App() {
     }
   };
 
-  // ฟังก์ชันลงคะแนนโหวต (Guard: 1 คน 1 โหวต)
+  // ฟังก์ชันลงคะแนนโหวต (โหมดตู้โหวตส่วนกลาง: เดินมากดได้เรื่อยๆ)
   const handleVote = (menuId) => {
-    if (hasVoted) return;
-
     setMenus((prev) =>
       prev.map((item) =>
         item.id === menuId ? { ...item, votes: (item.votes || 0) + 1 } : item
       )
     );
-    setHasVoted(true);
+    // แจ้งเตือนสั้นๆ ให้รู้ว่าคะแนนบันทึกแล้ว
+    // alert('บันทึกคะแนนเรียบร้อย! คนถัดไปสามารถเลือกต่อได้เลย');
   };
 
   // ฟังก์ชันรีเซ็ตเฉพาะคะแนนโหวต (คงรายการเมนูเดิมไว้)
@@ -94,7 +93,7 @@ export default function App() {
         {currentTab === 'vote' ? (
           <VotingBoardPage
             menus={menus}
-            hasVoted={hasVoted}
+            hasVoted={false}
             onVote={handleVote}
             onGoToManage={() => setCurrentTab('manage')}
           />
