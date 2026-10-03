@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import ManageMenuPage from './components/ManageMenuPage';
 import VotingBoardPage from './components/VotingBoardPage';
+import RecommendedMenuPage from './components/RecommendedMenuPage'; // นำเข้าหน้าที่สร้างใหม่
 import { STORAGE_KEYS } from './utils/constants';
 
 export default function App() {
-  // สลับแท็บหน้าจอ: 'vote' หรือ 'manage'
+  // สลับแท็บหน้าจอ: 'vote', 'manage', หรือ 'recommend'
   const [currentTab, setCurrentTab] = useState('vote');
 
-  // โหลดรายการเมนูจาก Local Storage (Lazy Initialization)
   const [menus, setMenus] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.MENUS);
@@ -19,16 +19,14 @@ export default function App() {
     }
   });
 
-  // โหลดสถานะว่าเครื่องนี้โหวตไปแล้วหรือยัง
   const [hasVoted, setHasVoted] = useState(() => {
     try {
       return localStorage.getItem(STORAGE_KEYS.HAS_VOTED) === 'true';
     } catch {
-    return false;
+      return false;
     }
   });
 
-  // ซิงค์ menus ลง Local Storage ทุกครั้งที่มีการเปลี่ยนแปลง
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEYS.MENUS, JSON.stringify(menus));
@@ -37,7 +35,6 @@ export default function App() {
     }
   }, [menus]);
 
-  // ซิงค์สถานะ hasVoted ลง Local Storage
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEYS.HAS_VOTED, String(hasVoted));
@@ -46,14 +43,11 @@ export default function App() {
     }
   }, [hasVoted]);
 
-  // ฟังก์ชันเพิ่มเมนูใหม่
   const handleAddMenu = (newMenu) => {
     setMenus((prev) => [newMenu, ...prev]);
-    // เพิ่มเสร็จแล้วสลับไปหน้ากระดานโหวตให้ทันที
     setCurrentTab('vote');
   };
 
-  // ฟังก์ชันลบเมนูรายตัว
   const handleDeleteMenu = (menuId) => {
     const confirmDelete = window.confirm('ยืนยันการลบเมนูนี้ออกจากรายการ?');
     if (confirmDelete) {
@@ -61,18 +55,14 @@ export default function App() {
     }
   };
 
-  // ฟังก์ชันลงคะแนนโหวต (โหมดตู้โหวตส่วนกลาง: เดินมากดได้เรื่อยๆ)
   const handleVote = (menuId) => {
     setMenus((prev) =>
       prev.map((item) =>
         item.id === menuId ? { ...item, votes: (item.votes || 0) + 1 } : item
       )
     );
-    // แจ้งเตือนสั้นๆ ให้รู้ว่าคะแนนบันทึกแล้ว
-    // alert('บันทึกคะแนนเรียบร้อย! คนถัดไปสามารถเลือกต่อได้เลย');
   };
 
-  // ฟังก์ชันรีเซ็ตเฉพาะคะแนนโหวต (คงรายการเมนูเดิมไว้)
   const handleResetVotes = () => {
     setMenus((prev) => prev.map((item) => ({ ...item, votes: 0 })));
     setHasVoted(false);
@@ -80,7 +70,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Header & Navigation */}
       <Navbar
         currentTab={currentTab}
         onTabChange={setCurrentTab}
@@ -88,25 +77,28 @@ export default function App() {
         totalMenus={menus.length}
       />
 
-      {/* Main Container แสดงผลตาม Tab */}
       <main className="flex-1">
-        {currentTab === 'vote' ? (
+        {currentTab === 'vote' && (
           <VotingBoardPage
             menus={menus}
             hasVoted={false}
             onVote={handleVote}
             onGoToManage={() => setCurrentTab('manage')}
           />
-        ) : (
+        )}
+        {currentTab === 'manage' && (
           <ManageMenuPage
             menus={menus}
             onAddMenu={handleAddMenu}
             onDeleteMenu={handleDeleteMenu}
           />
         )}
+        {/* เพิ่มเงื่อนไขการเรนเดอร์หน้าเมนูแนะนำ */}
+        {currentTab === 'recommend' && (
+          <RecommendedMenuPage onAddMenu={handleAddMenu} />
+        )}
       </main>
 
-      {/* Footer เรียบง่าย */}
       <footer className="border-t border-slate-200 py-6 text-center text-xs text-slate-400 bg-white">
         Local-First Voting System • ข้อมูลถูกบันทึกบนเครื่องของคุณผ่าน Local Storage
       </footer>
