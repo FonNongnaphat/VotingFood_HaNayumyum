@@ -1,11 +1,12 @@
 import React from 'react';
 
 /**
- * Navbar Component
- * @param {string} currentTab - แท็บปัจจุบัน ('manage' | 'vote')
- * @param {function} onTabChange - ฟังก์ชันสลับแท็บ
- * @param {function} onResetVotes - ฟังก์ชันรีเซ็ตคะแนนโหวตทั้งหมด
- * @param {number} totalMenus - จำนวนเมนูทั้งหมดที่มีในระบบ
+- Navbar Component
+- 
+- @param {string} currentTab แท็บปัจจุบัน ('manage' | 'vote' | 'recommend')
+- @param {function} onTabChange ฟังก์ชันสลับแท็บ
+- @param {function} onResetVotes ฟังก์ชันรีเซ็ตคะแนนโหวตทั้งหมด
+- @param {number} totalMenus จำนวนเมนูทั้งหมดที่มีในระบบ
  */
 export default function Navbar({ currentTab, onTabChange, onResetVotes, totalMenus }) {
   const handleResetClick = () => {
@@ -55,6 +56,19 @@ export default function Navbar({ currentTab, onTabChange, onResetVotes, totalMen
             }`}
           >
             จัดการเมนู
+          </button>
+          
+          {/* เพิ่มปุ่ม ไอเดียเมนู ตรงนี้ */}
+          <button
+            type="button"
+            onClick={() => onTabChange('recommend')}
+            className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+              currentTab === 'recommend'
+                ? 'bg-white text-orange-600 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            💡 ไอเดียเมนู
           </button>
         </nav>
 
