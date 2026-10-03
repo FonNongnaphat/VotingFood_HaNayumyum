@@ -34,6 +34,60 @@ const RECOMMENDED_MENUS = [
     image: 'https://images.unsplash.com/photo-1625938146369-adc83368bda7?auto=format&fit=crop&w=400&q=80' 
   },
   { 
+    name: 'ก๋วยเตี๋ยวเรือหมูน้ำตก', 
+    price: 40, 
+    tag: 'เส้น',
+    image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400' 
+  },
+  { 
+    name: 'ราเมนทงคตสึ', 
+    price: 150, 
+    tag: 'ญี่ปุ่น',
+    image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=400' 
+  },
+  { 
+    name: 'ข้าวซอยไก่', 
+    price: 60, 
+    tag: 'อาหารเหนือ',
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400' 
+  },
+  { 
+    name: 'พิซซ่า', 
+    price: 250, 
+    tag: 'ปาร์ตี้',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400' 
+  },
+  { 
+    name: 'ไก่ทอดเกาหลี', 
+    price: 180, 
+    tag: 'กินเล่น',
+    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400' 
+  },
+  { 
+    name: 'ซูชิเซ็ต', 
+    price: 200, 
+    tag: 'ญี่ปุ่น',
+    image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400' 
+  },
+  { 
+    name: 'ยำวุ้นเส้นหมูสับ', 
+    price: 80, 
+    tag: 'รสจัดจ้าน',
+    image: 'https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400' 
+  },
+  { 
+    name: 'เบอร์เกอร์เนื้อ', 
+    price: 150, 
+    tag: 'ฝรั่ง',
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400' 
+  },
+  { 
+    name: 'ข้าวแกงกะหรี่ญี่ปุ่น', 
+    price: 120, 
+    tag: 'ญี่ปุ่น',
+    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400' 
+  },
+  { 
     name: 'อาหารคลีน / สลัด', 
     price: 80, 
     tag: 'สุขภาพ',
